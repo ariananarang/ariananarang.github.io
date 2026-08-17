@@ -269,7 +269,6 @@ def build_index():
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="wrap">
     <h1 class="sr-only">Ariana Narang &mdash; Interactive and Experiential Producer</h1>
-    <span class="badge"><i></i> Open to new work &mdash; NY / Chicago</span>
     <!-- Swap the <span class="ph"> below for: <img src="images/hero.jpg" alt="Ariana Narang"> -->
     <div class="portrait">{ph("Add your portrait &mdash; images/hero.jpg")}</div>
     <div class="hero-bio">{bio}</div>
