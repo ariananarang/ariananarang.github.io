@@ -175,6 +175,10 @@ header{position:sticky;top:0;z-index:60;background:var(--cream);border-bottom:2p
   aspect-ratio:2.4/1;display:flex;align-items:center;justify-content:center;
 }
 .hero-band img{width:100%;height:100%;object-fit:cover}
+/* a real image keeps its own proportions — cropping a key visual to 2.4:1
+   slices the subject and any legal line off the bottom */
+.hero-band.has-img{aspect-ratio:auto;display:block;background:none}
+.hero-band.has-img img{height:auto}
 .hero-band .ph{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;text-align:center;padding:20px;color:rgba(255,255,255,.72)}
 /* the case-study band carries the project colour class directly */
 .hero-band.c-blue{background:var(--blue)}
@@ -230,6 +234,25 @@ header{position:sticky;top:0;z-index:60;background:var(--cream);border-bottom:2p
 }
 .gallery .shot img{width:100%;height:100%;object-fit:cover}
 .gallery .shot .ph{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-align:center;padding:14px}
+
+/* campaign boards — full width and uncropped. These are dense with small type,
+   so they get their natural ratio rather than the cropped .gallery grid. */
+.boards{display:grid;gap:22px;margin:64px 0 0}
+.boards a{display:block;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.boards a:hover{transform:translateY(-3px)}
+.boards img{
+  width:100%;height:auto;display:block;
+  border:2px solid var(--ink);border-radius:var(--radius);
+}
+.boards-note{margin:2px 0 0;font-size:13px;color:var(--dim)}
+
+/* a single documentary photo with a caption */
+.photo{margin:44px 0 0;max-width:820px}
+.photo img{
+  width:100%;height:auto;display:block;
+  border:2px solid var(--ink);border-radius:var(--radius);
+}
+.photo figcaption{margin-top:14px;font-size:14px;color:var(--dim)}
 
 /* prev / next */
 .pager{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:80px 0 0;padding-bottom:20px}

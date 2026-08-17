@@ -28,8 +28,35 @@ essentia-change       black-dont-crack      topochico
 accenture-reinvented  chase
 ```
 
-So Obstructed Brews wants: `obstructed-brews-hero.jpg`, `obstructed-brews-01.jpg`,
-`obstructed-brews-02.jpg`, `obstructed-brews-03.jpg`, `obstructed-brews-04.jpg`.
+So a project with placeholders wants `<slug>-hero.jpg`, `<slug>-01.jpg`, and so on.
+
+### Obstructed Brews is already done
+
+Its real assets are in place, and it uses the newer approach described under
+"Real images in build.py" below — campaign boards shown full width, plus one
+captioned photo. Its files are:
+
+```
+obstructed-brews-hero.jpg        the PR key visual
+obstructed-brews-board-1.webp    campaign board — press and results
+obstructed-brews-board-2.webp    technology board
+obstructed-brews-board-3.webp    app flow board
+obstructed-brews-board-4.webp    stadium geofencing board
+obstructed-brews-clio.jpg        Clio Sports awards photo
+```
+
+## Real images in build.py
+
+Rather than hand-editing HTML, add the filenames to the project's entry in
+`build.py` and re-run `python3 build.py`. Three optional fields:
+
+| Field | What it does |
+|---|---|
+| `hero_img=(file, alt)` | Fills the band under the title. A real image keeps its own proportions instead of being cropped to 2.4:1. |
+| `boards=[(file, alt), …]` | Full-width, uncropped, stacked. Use for dense layouts like award boards, where cropping would cut the type off. Each one links to the full-size file. |
+| `photos=[(file, alt, caption), …]` | A photo at reading width with a caption under it. |
+
+Set `gallery=0` when real images replace the placeholder grid.
 
 ## Swapping in a real image
 

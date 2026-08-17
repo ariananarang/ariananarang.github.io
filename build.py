@@ -42,7 +42,29 @@ PROJECTS = [
                 "<b>Cannes Lions</b> — 3× Shortlist",
                 "<b>The One Show</b> — 5× Merits"],
         press="LBB · AdWeek · Marketing Dive · PR Newswire · Trend Hunter",
-        gallery=4,
+        gallery=0,
+        hero_img=("obstructed-brews-hero.jpg",
+                  "Obstructed Brews key visual — a stadium pillar blocking the view of the field, "
+                  "with a Coors Light can held up beside it"),
+        boards=[
+            ("obstructed-brews-board-1.webp",
+             "Campaign board with press quotes from Fox News, TrendHunter and NBC News, and results: "
+             "161,558,253 impressions and a 135% uplift in positive sentiment"),
+            ("obstructed-brews-board-2.webp",
+             "Technology board showing the three-step flow — scanning the view from the seat, "
+             "GPT-4 Vision analysis within a 0.05% error margin, and the Coors Light reward"),
+            ("obstructed-brews-board-3.webp",
+             "App board showing the five mobile screens fans moved through, from QR scan and age "
+             "verification to photo capture, obstruction percentage, and the dollar reward"),
+            ("obstructed-brews-board-4.webp",
+             "Stadium board — a wireframe render of Citi Field with the geofenced seats mapped "
+             "across the bowl"),
+        ],
+        photos=[
+            ("obstructed-brews-clio.jpg",
+             "The team on the Clio Sports red carpet holding two Clio statues",
+             "The team at Clio Sports, where Obstructed Brews took Gold."),
+        ],
     ),
     dict(
         slug="lets-be-real", title="Let's Be Real", client="Ad Council Seize the Awkward",
@@ -356,7 +378,32 @@ def build_case(i, p):
         '    <div class="shot">{img}</div>\n'.format(
             img=ph("{}-0{}.jpg".format(slug, n + 1)))
         for n in range(p["gallery"]))
-    gallery = f'  <div class="gallery">\n{shots}  </div>\n'
+    gallery = f'  <div class="gallery">\n{shots}  </div>\n' if p["gallery"] else ""
+
+    # Campaign boards run full width and uncropped — they're dense with small
+    # type, so the cropped gallery grid would cut them off.
+    boards = ""
+    if p.get("boards"):
+        items = "".join(
+            f'    <a href="{b}images/{f}">'
+            f'<img src="{b}images/{f}" alt="{html.escape(a)}" loading="lazy"></a>\n'
+            for f, a in p["boards"])
+        boards = (f'  <div class="boards">\n{items}'
+                  f'    <p class="boards-note">Click any board to view it full size.</p>\n  </div>\n')
+
+    photos = "".join(
+        f'  <figure class="photo">'
+        f'<img src="{b}images/{f}" alt="{html.escape(a)}" loading="lazy">'
+        f'<figcaption>{c}</figcaption></figure>\n'
+        for f, a, c in p.get("photos", []))
+
+    if p.get("hero_img"):
+        hf, ha = p["hero_img"]
+        band = f'<img src="{b}images/{hf}" alt="{html.escape(ha)}">'
+        band_cls = " has-img"
+    else:
+        band = ph(f"{slug}-hero.jpg")
+        band_cls = ""
 
     pager = '  <nav class="pager">\n'
     pager += (f'    <a href="{prev["slug"]}.html"><em>&larr; Previous</em><b class="disp">{prev["title"]}</b></a>\n'
@@ -382,7 +429,7 @@ def build_case(i, p):
       <div><dt>Year</dt><dd>{p['year']}</dd></div>
     </dl>
 
-    <div class="hero-band {p['color']}">{ph(f"{p['slug']}-hero.jpg")}</div>
+    <div class="hero-band{band_cls} {p['color']}">{band}</div>
 
     <div class="case-body">
       <div class="prose">
@@ -391,7 +438,7 @@ def build_case(i, p):
       <aside class="side">
 {side}      </aside>
     </div>
-{results}{gallery}{pager}  </div>
+{results}{boards}{photos}{gallery}{pager}  </div>
 </article>
 """
     out += footer(b)
