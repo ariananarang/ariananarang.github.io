@@ -279,7 +279,7 @@ def build_index():
   </div>
 </section>
 {marquee()}<section class="wrap work">
-  <div class="sechead"><h2 class="disp">Selected Work</h2><span class="count">{len(PROJECTS)} Projects</span></div>
+  <div class="sechead"><h2 class="disp">Selected Work</h2></div>
   <div class="grid">
 {cards}  </div>
   <p style="margin:44px 0 0"><a class="chip" href="work.html" style="text-decoration:none;padding:12px 24px">See all {len(PROJECTS)} projects &rarr;</a></p>
